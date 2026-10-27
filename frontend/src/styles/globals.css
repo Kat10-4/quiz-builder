@@ -15,10 +15,26 @@
   --shadow: rgba(0, 0, 2, 0.3) 0px 10px 30px 0px;
   --radius: 0px;
   --radius-panel: 8px;
+
+  --nav-link-font-size: 16px;
+  --nav-link-font-weight: 400;
+  --nav-link-line-height: 1.45;
+  --nav-link-text-color: #000000;
+  --nav-link-text-color-hover: #000000;
+  --nav-link-text-decoration: none;
+  --link-spacing: 32px;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
 }
 
 html,
@@ -36,6 +52,36 @@ body {
 
 a {
   text-decoration: none;
+}
+
+.nav-link {
+  font-size: var(--nav-link-font-size);
+  font-weight: var(--nav-link-font-weight);
+  line-height: var(--nav-link-line-height);
+  color: var(--nav-link-text-color);
+  text-decoration: var(--nav-link-text-decoration);
+  text-transform: none;
+  letter-spacing: normal;
+  white-space: pre-wrap;
+  cursor: pointer;
+  align-self: center;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.nav-link--active {
+  color: var(--nav-link-text-color-hover);
+  text-underline-offset: 7px;
+  text-decoration: underline;
+}
+
+.nav-links {
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--link-spacing);
+  row-gap: 16px;
+  list-style: none;
 }
 
 button,

@@ -11,25 +11,24 @@ function QuestionView({ question, index }: QuestionViewProps) {
       <p className="text-sm text-[var(--muted)]">
         Question {index + 1} · {question.type}
       </p>
-      <h3 className="mt-1 break-words font-medium text-[var(--ink)]">{question.text}</h3>
+      <h3 className="mt-2 break-words font-medium text-[var(--ink)]">{question.text}</h3>
 
       {question.type === 'BOOLEAN' ? (
-        <p className="mt-2 text-[var(--ink)]">
-          Correct answer:{' '}
-          <span className="font-medium">
-            {question.correctAnswer === 'true' ? 'True' : 'False'}
-          </span>
+        <p className="mt-3 text-[var(--ink)]">
+          <span className="font-bold">Correct answer:</span>{' '}
+          {question.correctAnswer === 'true' ? 'True' : 'False'}
         </p>
       ) : null}
 
       {question.type === 'INPUT' ? (
-        <p className="mt-2 text-[var(--ink)]">
-          Correct answer: <span className="break-words font-medium">{question.correctAnswer}</span>
+        <p className="mt-3 text-[var(--ink)]">
+          <span className="font-bold">Correct answer:</span>{' '}
+          <span className="break-words">{question.correctAnswer}</span>
         </p>
       ) : null}
 
       {question.type === 'CHECKBOX' ? (
-        <ul className="mt-2 flex flex-col gap-2">
+        <ul className="mt-3 flex flex-col gap-2">
           {question.options.map((option) => (
             <li key={option.id} className="flex items-center gap-2 text-[var(--ink)]">
               <span

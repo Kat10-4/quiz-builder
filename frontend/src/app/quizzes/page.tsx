@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ConfirmModal } from '@/components/ConfirmModal';
+import { ConfirmModal } from '@/components/modal/ConfirmModal';
 import { PageHeader } from '@/components/PageHeader';
 import { QuizList } from '@/components/quizzes/QuizList';
 import { api } from '@/lib/api/api';
@@ -10,9 +10,10 @@ import type { QuizListItem } from '@/lib/types/types';
 function QuizzesPage() {
   const [quizzes, setQuizzes] = useState<QuizListItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [quizToDelete, setQuizToDelete] = useState<QuizListItem | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -25,7 +26,7 @@ function QuizzesPage() {
         }
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof Error ? err.message : 'Failed to load quizzes');
+          setLoadError(err instanceof Error ? err.message : 'Failed to load quizzes');
         }
       } finally {
         if (!cancelled) {
@@ -46,13 +47,13 @@ function QuizzesPage() {
     }
 
     setDeleting(true);
+    setDeleteError(null);
     try {
       await api.deleteQuiz(quizToDelete.id);
       setQuizzes((prev) => prev.filter((quiz) => quiz.id !== quizToDelete.id));
       setQuizToDelete(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete quiz');
-      setQuizToDelete(null);
+      setDeleteError(err instanceof Error ? err.message : 'Failed to delete quiz');
     } finally {
       setDeleting(false);
     }
@@ -62,8 +63,8 @@ function QuizzesPage() {
     return <p className="text-[var(--muted)]">Loading quizzes…</p>;
   }
 
-  if (error) {
-    return <p className="text-[var(--danger)]">{error}</p>;
+  if (loadError) {
+    return <p className="text-[var(--danger)]">{loadError}</p>;
   }
 
   const quizCountLabel = `${quizzes.length} ${quizzes.length === 1 ? 'quiz' : 'quizzes'}`;
@@ -71,10 +72,12 @@ function QuizzesPage() {
   return (
     <div>
       <PageHeader title="Quizzes" description={quizCountLabel} />
+      {deleteError ? <p className="mb-4 text-sm text-[var(--danger)]">{deleteError}</p> : null}
       <QuizList
         quizzes={quizzes}
         onDelete={(id) => {
           const quiz = quizzes.find((item) => item.id === id) ?? null;
+          setDeleteError(null);
           setQuizToDelete(quiz);
         }}
       />
@@ -87,6 +90,7 @@ function QuizzesPage() {
             : 'This quiz will be permanently deleted.'
         }
         confirmLabel="Delete"
+        busyLabel="Deleting…"
         cancelLabel="Cancel"
         busy={deleting}
         onConfirm={confirmDelete}

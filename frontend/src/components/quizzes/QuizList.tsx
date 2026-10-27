@@ -1,19 +1,22 @@
+import { ButtonLink } from '@/components/header/ButtonLink';
 import { QuizListItem } from '@/components/quizzes/QuizListItem';
 import type { QuizListItem as QuizListItemType } from '@/lib/types/types';
 
 type QuizListProps = {
   quizzes: QuizListItemType[];
   onDelete: (id: string) => void;
-  emptyMessage?: string;
 };
 
-function QuizList({
-  quizzes,
-  onDelete,
-  emptyMessage = 'No quizzes yet. Create your first one.',
-}: QuizListProps) {
+function QuizList({ quizzes, onDelete }: QuizListProps) {
   if (quizzes.length === 0) {
-    return <p className="text-[var(--muted)]">{emptyMessage}</p>;
+    return (
+      <div>
+        <p className="text-[var(--muted)]">No quizzes yet. Create your first one.</p>
+        <div className="mt-4">
+          <ButtonLink href="/create">Create quiz</ButtonLink>
+        </div>
+      </div>
+    );
   }
 
   return (

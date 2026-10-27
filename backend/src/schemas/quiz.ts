@@ -3,25 +3,44 @@ import { ValidationMessage } from '../constants/validationMessages';
 
 const booleanQuestionSchema = z.object({
   type: z.literal('BOOLEAN'),
-  text: z.string().trim().min(1, ValidationMessage.TEXT_REQUIRED),
-  correctAnswer: z.enum(['true', 'false']),
+  text: z
+    .string({ required_error: ValidationMessage.TEXT_REQUIRED })
+    .trim()
+    .min(1, ValidationMessage.TEXT_REQUIRED),
+  correctAnswer: z.enum(['true', 'false'], {
+    required_error: ValidationMessage.CORRECT_ANSWER_REQUIRED,
+    invalid_type_error: ValidationMessage.CORRECT_ANSWER_REQUIRED,
+  }),
 });
 
 const inputQuestionSchema = z.object({
   type: z.literal('INPUT'),
-  text: z.string().trim().min(1, ValidationMessage.TEXT_REQUIRED),
-  correctAnswer: z.string().trim().min(1, ValidationMessage.CORRECT_ANSWER_REQUIRED),
+  text: z
+    .string({ required_error: ValidationMessage.TEXT_REQUIRED })
+    .trim()
+    .min(1, ValidationMessage.TEXT_REQUIRED),
+  correctAnswer: z
+    .string({ required_error: ValidationMessage.CORRECT_ANSWER_REQUIRED })
+    .trim()
+    .min(1, ValidationMessage.CORRECT_ANSWER_REQUIRED),
 });
 
 const checkboxQuestionSchema = z.object({
   type: z.literal('CHECKBOX'),
-  text: z.string().trim().min(1, ValidationMessage.TEXT_REQUIRED),
+  text: z
+    .string({ required_error: ValidationMessage.TEXT_REQUIRED })
+    .trim()
+    .min(1, ValidationMessage.TEXT_REQUIRED),
   options: z
     .array(
       z.object({
-        text: z.string().trim().min(1, ValidationMessage.TEXT_REQUIRED),
-        isCorrect: z.boolean(),
+        text: z
+          .string({ required_error: ValidationMessage.TEXT_REQUIRED })
+          .trim()
+          .min(1, ValidationMessage.TEXT_REQUIRED),
+        isCorrect: z.boolean({ required_error: ValidationMessage.CORRECT_OPTION_VALIDATION }),
       }),
+      { required_error: ValidationMessage.OPTION_NUMBER_VALIDATION },
     )
     .min(2, ValidationMessage.OPTION_NUMBER_VALIDATION),
 });
@@ -34,8 +53,16 @@ const questionSchema = z.discriminatedUnion('type', [
 
 const createQuizSchema = z
   .object({
-    title: z.string().trim().min(1, ValidationMessage.TITLE_REQUIRED).max(200),
-    questions: z.array(questionSchema).min(1, ValidationMessage.QUESTION_NUMBER_VALIDATION),
+    title: z
+      .string({ required_error: ValidationMessage.TITLE_REQUIRED })
+      .trim()
+      .min(1, ValidationMessage.TITLE_REQUIRED)
+      .max(200),
+    questions: z
+      .array(questionSchema, {
+        required_error: ValidationMessage.QUESTION_NUMBER_VALIDATION,
+      })
+      .min(1, ValidationMessage.QUESTION_NUMBER_VALIDATION),
   })
   .superRefine((data, ctx) => {
     data.questions.forEach((question, index) => {

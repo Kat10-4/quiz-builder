@@ -1,5 +1,6 @@
 import type { RequestHandler } from 'express';
 import type { ZodTypeAny } from 'zod';
+import { ErrorMessage } from '../constants/errorMessages';
 
 const validateBody =
   (schema: ZodTypeAny): RequestHandler =>
@@ -8,7 +9,7 @@ const validateBody =
 
     if (!parsed.success) {
       res.status(400).json({
-        error: 'Validation failed',
+        error: ErrorMessage.VALIDATION_FAILED,
         details: parsed.error.flatten(),
       });
       return;

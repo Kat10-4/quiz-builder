@@ -4,4 +4,4 @@ function HomePage() {
   redirect('/quizzes');
 }
 
-export { HomePage };
+export default HomePage;

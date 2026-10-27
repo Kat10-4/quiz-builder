@@ -1,5 +1,5 @@
 import type { PrismaClient } from '@prisma/client';
-import { prisma } from '../lib/prisma';
+import { prisma } from '../lib/prisma/client';
 import type { CreateQuizInput } from '../schemas/quiz';
 
 class QuizService {

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ValidationMessage } from '../constants/validationMessages';
+import { ValidationMessage } from '../lib/constants/validationMessages';
 
 const booleanQuestionSchema = z.object({
   type: z.literal('BOOLEAN'),

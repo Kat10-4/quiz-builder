@@ -18,6 +18,43 @@ quiz-builder/
 └── README.md
 ```
 
+## Data model
+
+Source of truth: `backend/prisma/schema.prisma`.
+
+- **BOOLEAN / INPUT** — correct value in `Question.correctAnswer`
+- **CHECKBOX** — `correctAnswer` is null; answers live on `Option.isCorrect`
+- Deleting a quiz cascades to its questions and options
+
+```mermaid
+erDiagram
+  Quiz ||--o{ Question : has
+  Question ||--o{ Option : has
+
+  Quiz {
+    string id PK
+    string title
+    datetime createdAt
+    datetime updatedAt
+  }
+
+  Question {
+    string id PK
+    string quizId FK
+    enum type "BOOLEAN | INPUT | CHECKBOX"
+    string text
+    int order
+    string correctAnswer "nullable"
+  }
+
+  Option {
+    string id PK
+    string questionId FK
+    string text
+    boolean isCorrect
+  }
+```
+
 ## 1. Start the database
 
 ```bash

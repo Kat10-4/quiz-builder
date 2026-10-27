@@ -36,7 +36,11 @@ const questionSchema = z.discriminatedUnion('type', [
 
 const createQuizSchema = z
   .object({
-    title: z.string().trim().min(1, ValidationMessage.TITLE_REQUIRED).max(200),
+    title: z
+      .string()
+      .trim()
+      .min(1, ValidationMessage.TITLE_REQUIRED)
+      .max(200, ValidationMessage.TITLE_MAX),
     questions: z.array(questionSchema).min(1, ValidationMessage.QUESTION_NUMBER_VALIDATION),
   })
   .superRefine((data, ctx) => {

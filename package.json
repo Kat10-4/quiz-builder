@@ -1,0 +1,21 @@
+{
+  "name": "quiz-builder",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Full-stack Quiz Builder (Express + Next.js + PostgreSQL)",
+  "scripts": {
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml,css}\"",
+    "lint": "npm run lint --prefix backend && npm run lint --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

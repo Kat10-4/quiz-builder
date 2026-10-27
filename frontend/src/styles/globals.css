@@ -42,12 +42,16 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
   background: var(--bg);
   color: var(--ink);
   line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 a {
@@ -99,6 +103,7 @@ textarea {
   border: 0;
   color: var(--ink);
   padding: 12px 16px;
+  max-width: 100%;
 }
 
 select,
@@ -106,6 +111,7 @@ select,
   appearance: none;
   -webkit-appearance: none;
   min-height: 48px;
+  max-width: 100%;
   padding: 12px 40px 12px 16px;
   background-color: var(--surface-muted);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%231d1e20' stroke-width='1.5'/%3E%3C/svg%3E");

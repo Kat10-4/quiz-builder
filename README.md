@@ -80,13 +80,13 @@ API: [http://localhost:4000](http://localhost:4000)
 
 ### API
 
-| Method   | Path            | Description                                      |
-| -------- | --------------- | ------------------------------------------------ |
-| `GET`    | `/health`       | Health check                                     |
-| `GET`    | `/quizzes`      | List quizzes (id, title, question count)         |
-| `GET`    | `/quizzes/:id`  | Quiz detail with questions and options           |
-| `POST`   | `/quizzes`      | Create quiz (Zod-validated body) → `201`         |
-| `DELETE` | `/quizzes/:id`  | Delete quiz (cascades questions/options) → `204` |
+| Method   | Path           | Description                                      |
+| -------- | -------------- | ------------------------------------------------ |
+| `GET`    | `/health`      | Health check                                     |
+| `GET`    | `/quizzes`     | List quizzes (id, title, question count)         |
+| `GET`    | `/quizzes/:id` | Quiz detail with questions and options           |
+| `POST`   | `/quizzes`     | Create quiz (Zod-validated body) → `201`         |
+| `DELETE` | `/quizzes/:id` | Delete quiz (cascades questions/options) → `204` |
 
 - Create body: title + questions (`BOOLEAN` / `INPUT` / `CHECKBOX`); checkbox options carry `isCorrect`
 - Validation errors return structured Zod issues; missing quiz → `404`
@@ -126,6 +126,7 @@ Start the backend first so create / list / delete work against a live API.
 ### Quizzes list & detail
 
 - List shows title and question count; delete removes a quiz via the API
+- Delete opens a small confirmation modal (Cancel / Delete) before calling the API
 - Detail shows question types, text, and answers / options (read-only)
 
 ### Mobile

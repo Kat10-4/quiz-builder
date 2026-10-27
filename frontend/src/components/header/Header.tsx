@@ -25,14 +25,14 @@ function Header() {
         scrolled || menuOpen ? 'shadow-[0_6px_14px_rgba(0,0,0,0.1)]' : 'shadow-none'
       }`}
     >
-      <div className="bg-[var(--accent-green-soft)] px-4 py-2.5 text-center text-sm font-black text-[var(--ink)]">
+      <div className="bg-[var(--accent-green-soft)] px-4 py-2.5 text-center text-sm font-black break-words text-[var(--ink)]">
         Quiz Builder — create, list, and review quizzes
       </div>
-      <div className="relative">
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-6 md:py-8">
+      <div className="relative min-w-0">
+        <div className="mx-auto flex w-full min-w-0 max-w-3xl items-center justify-between gap-4 px-4 py-6 md:py-8">
           <Link
             href="/quizzes"
-            className="text-lg font-semibold tracking-tight text-[var(--ink)] no-underline hover:no-underline"
+            className="min-w-0 shrink text-lg font-semibold tracking-tight text-[var(--ink)] no-underline hover:no-underline"
           >
             <h1 className="text-lg font-semibold tracking-tight">Quiz Builder</h1>
           </Link>

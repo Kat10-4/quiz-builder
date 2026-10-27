@@ -7,11 +7,11 @@ type QuestionViewProps = {
 
 function QuestionView({ question, index }: QuestionViewProps) {
   return (
-    <li className="border-b border-[var(--border)] px-4 py-4 last:border-b-0">
+    <li className="min-w-0 border-b border-[var(--border)] px-4 py-4 last:border-b-0">
       <p className="text-sm text-[var(--muted)]">
         Question {index + 1} · {question.type}
       </p>
-      <h3 className="mt-1 font-medium text-[var(--ink)]">{question.text}</h3>
+      <h3 className="mt-1 break-words font-medium text-[var(--ink)]">{question.text}</h3>
 
       {question.type === 'BOOLEAN' ? (
         <p className="mt-2 text-[var(--ink)]">
@@ -24,7 +24,7 @@ function QuestionView({ question, index }: QuestionViewProps) {
 
       {question.type === 'INPUT' ? (
         <p className="mt-2 text-[var(--ink)]">
-          Correct answer: <span className="font-medium">{question.correctAnswer}</span>
+          Correct answer: <span className="break-words font-medium">{question.correctAnswer}</span>
         </p>
       ) : null}
 
@@ -38,7 +38,7 @@ function QuestionView({ question, index }: QuestionViewProps) {
                 }`}
                 aria-hidden
               />
-              <span>
+              <span className="min-w-0 break-words">
                 {option.text}
                 {option.isCorrect ? (
                   <span className="ml-2 text-sm text-[var(--muted)]">(correct)</span>

@@ -33,7 +33,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <body className={dmSans.className}>
         <Header />
-        <main className="mx-auto max-w-3xl px-4 py-8">{children}</main>
+        <main className="mx-auto w-full min-w-0 max-w-3xl px-4 py-8">{children}</main>
       </body>
     </html>
   );

@@ -9,12 +9,12 @@ type QuizListItemProps = {
 
 function QuizListItem({ quiz, onDelete }: QuizListItemProps) {
   return (
-    <li className="flex items-center justify-between gap-4 border-b border-[var(--border)] px-4 py-4 last:border-b-0">
+    <li className="flex min-w-0 items-start justify-between gap-4 border-b border-[var(--border)] px-4 py-4 last:border-b-0">
       <Link
         href={`/quizzes/${quiz.id}`}
         className="min-w-0 flex-1 text-[var(--ink)] hover:underline"
       >
-        <span className="block font-medium">{quiz.title}</span>
+        <span className="block break-words font-medium">{quiz.title}</span>
         <span className="text-sm text-[var(--muted)]">
           {quiz.questionCount} {quiz.questionCount === 1 ? 'question' : 'questions'}
         </span>
@@ -23,6 +23,7 @@ function QuizListItem({ quiz, onDelete }: QuizListItemProps) {
         type="button"
         variant="secondary"
         size="sm"
+        className="shrink-0"
         onClick={() => onDelete(quiz.id)}
         aria-label={`Delete ${quiz.title}`}
       >

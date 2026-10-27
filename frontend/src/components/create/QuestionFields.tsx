@@ -62,17 +62,17 @@ function QuestionFields({
   }
 
   return (
-    <fieldset className="border border-[var(--border)] px-4 py-4">
+    <fieldset className="min-w-0 border border-[var(--border)] px-4 py-4">
       <legend className="px-1 text-sm text-[var(--muted)]">Question {index + 1}</legend>
 
-      <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-3">
+      <div className="mt-2 flex min-w-0 flex-wrap items-start justify-between gap-3">
+        <div className="flex min-w-0 flex-wrap items-center gap-3">
           <label className="text-sm font-medium" htmlFor={`question-type-${index}`}>
             Type
           </label>
           <select
             id={`question-type-${index}`}
-            className="form-select"
+            className="form-select min-w-0"
             value={type}
             onChange={(e) => changeType(e.target.value as QuestionType)}
           >

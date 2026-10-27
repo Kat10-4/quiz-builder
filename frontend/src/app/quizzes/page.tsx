@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { ConfirmModal } from '@/components/ConfirmModal';
 import { PageHeader } from '@/components/PageHeader';
 import { QuizList } from '@/components/quizzes/QuizList';
 import { api } from '@/lib/api/api';
@@ -10,6 +11,8 @@ function QuizzesPage() {
   const [quizzes, setQuizzes] = useState<QuizListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [quizToDelete, setQuizToDelete] = useState<QuizListItem | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -37,17 +40,21 @@ function QuizzesPage() {
     };
   }, []);
 
-  async function handleDelete(id: string) {
-    const confirmed = window.confirm('Delete this quiz?');
-    if (!confirmed) {
+  async function confirmDelete() {
+    if (!quizToDelete) {
       return;
     }
 
+    setDeleting(true);
     try {
-      await api.deleteQuiz(id);
-      setQuizzes((prev) => prev.filter((quiz) => quiz.id !== id));
+      await api.deleteQuiz(quizToDelete.id);
+      setQuizzes((prev) => prev.filter((quiz) => quiz.id !== quizToDelete.id));
+      setQuizToDelete(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to delete quiz');
+      setQuizToDelete(null);
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -64,7 +71,31 @@ function QuizzesPage() {
   return (
     <div>
       <PageHeader title="Quizzes" description={quizCountLabel} />
-      <QuizList quizzes={quizzes} onDelete={handleDelete} />
+      <QuizList
+        quizzes={quizzes}
+        onDelete={(id) => {
+          const quiz = quizzes.find((item) => item.id === id) ?? null;
+          setQuizToDelete(quiz);
+        }}
+      />
+      <ConfirmModal
+        open={quizToDelete !== null}
+        title="Delete quiz?"
+        description={
+          quizToDelete
+            ? `"${quizToDelete.title}" will be permanently deleted.`
+            : 'This quiz will be permanently deleted.'
+        }
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        busy={deleting}
+        onConfirm={confirmDelete}
+        onCancel={() => {
+          if (!deleting) {
+            setQuizToDelete(null);
+          }
+        }}
+      />
     </div>
   );
 }

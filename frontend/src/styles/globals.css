@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+
+:root {
+  --bg: #fffdf2;
+  --ink: #1d1e20;
+  --muted: #6b6e73;
+  --surface: #ffffff;
+  --surface-muted: #f1f1f1;
+  --border: #dadce0;
+  --accent: #000000;
+  --accent-hover: #30363c;
+  --accent-green: #aff576;
+  --accent-green-soft: rgba(175, 245, 118, 0.83);
+  --danger: #b42318;
+  --shadow: rgba(0, 0, 2, 0.3) 0px 10px 30px 0px;
+  --radius: 0px;
+  --radius-panel: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  border-radius: var(--radius);
+}
+
+input,
+select,
+textarea {
+  background: var(--surface-muted);
+  border: 0;
+  color: var(--ink);
+  padding: 12px 16px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #888888;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}

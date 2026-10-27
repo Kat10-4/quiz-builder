@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { QuizList } from '@/components/QuizList';
+import { PageHeader } from '@/components/PageHeader';
+import { QuizList } from '@/components/quizzes/QuizList';
 import { api } from '@/lib/api/api';
 import type { QuizListItem } from '@/lib/types/types';
 
@@ -58,17 +59,11 @@ function QuizzesPage() {
     return <p className="text-[var(--danger)]">{error}</p>;
   }
 
+  const quizCountLabel = `${quizzes.length} ${quizzes.length === 1 ? 'quiz' : 'quizzes'}`;
+
   return (
     <div>
-      <div className="mb-8 flex items-end justify-between gap-4">
-        <div>
-          <h2 className="text-3xl font-semibold tracking-tight">Quizzes</h2>
-          <p className="mt-1 text-[var(--muted)]">
-            {quizzes.length} {quizzes.length === 1 ? 'quiz' : 'quizzes'}
-          </p>
-        </div>
-      </div>
-
+      <PageHeader title="Quizzes" description={quizCountLabel} />
       <QuizList quizzes={quizzes} onDelete={handleDelete} />
     </div>
   );

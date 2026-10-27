@@ -1,4 +1,4 @@
-import { QuizListItem } from '@/components/QuizListItem';
+import { QuizListItem } from '@/components/quizzes/QuizListItem';
 import type { QuizListItem as QuizListItemType } from '@/lib/types/types';
 
 type QuizListProps = {

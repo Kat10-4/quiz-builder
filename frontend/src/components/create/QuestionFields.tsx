@@ -8,7 +8,7 @@ import type {
   UseFormWatch,
 } from 'react-hook-form';
 import { CheckboxOptions } from '@/components/create/CheckboxOptions';
-import { FormButton } from '@/components/create/FormButton';
+import { FormButton } from '@/components/FormButton';
 import type { CreateQuizFormValues } from '@/lib/validation/createQuizSchema';
 
 type QuestionType = CreateQuizFormValues['questions'][number]['type'];
@@ -37,6 +37,15 @@ function QuestionFields({
   const type = watch(`questions.${index}.type`);
   const questionError = errors.questions?.[index];
   const textError = questionError && 'text' in questionError ? questionError.text : undefined;
+  const correctAnswerMessage =
+    questionError &&
+    'correctAnswer' in questionError &&
+    questionError.correctAnswer &&
+    typeof questionError.correctAnswer === 'object' &&
+    'message' in questionError.correctAnswer &&
+    typeof questionError.correctAnswer.message === 'string'
+      ? questionError.correctAnswer.message
+      : undefined;
 
   function changeType(nextType: QuestionType) {
     const text = watch(`questions.${index}.text`) ?? '';
@@ -62,10 +71,10 @@ function QuestionFields({
   }
 
   return (
-    <fieldset className="min-w-0 border border-[var(--border)] px-4 py-4">
+    <fieldset className="min-w-0 border border-[var(--border)] px-4 pb-4 pt-2">
       <legend className="px-1 text-sm text-[var(--muted)]">Question {index + 1}</legend>
 
-      <div className="mt-2 flex min-w-0 flex-wrap items-start justify-between gap-3">
+      <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
         <div className="flex min-w-0 flex-wrap items-center gap-3">
           <label className="text-sm font-medium" htmlFor={`question-type-${index}`}>
             Type
@@ -106,30 +115,51 @@ function QuestionFields({
       </div>
 
       <div className="mt-4">
-        <label className="mb-2 block text-sm font-medium">Question text</label>
-        <input className="w-full" {...register(`questions.${index}.text`)} />
+        <label className="mb-2 block text-sm font-medium" htmlFor={`question-text-${index}`}>
+          Question text
+        </label>
+        <input
+          id={`question-text-${index}`}
+          className="w-full"
+          {...register(`questions.${index}.text`)}
+        />
         {textError?.message ? (
           <p className="mt-2 text-sm text-[var(--danger)]">{textError.message}</p>
         ) : null}
       </div>
 
       {type === 'BOOLEAN' ? (
-        <div className="mt-4 flex gap-4">
-          <label className="flex items-center gap-2">
-            <input type="radio" value="true" {...register(`questions.${index}.correctAnswer`)} />
-            True
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="radio" value="false" {...register(`questions.${index}.correctAnswer`)} />
-            False
-          </label>
+        <div className="mt-4">
+          <p className="mb-2 text-sm font-medium">Correct answer</p>
+          <div className="flex gap-4">
+            <label className="flex items-center gap-2">
+              <input type="radio" value="true" {...register(`questions.${index}.correctAnswer`)} />
+              True
+            </label>
+            <label className="flex items-center gap-2">
+              <input type="radio" value="false" {...register(`questions.${index}.correctAnswer`)} />
+              False
+            </label>
+          </div>
+          {correctAnswerMessage ? (
+            <p className="mt-2 text-sm text-[var(--danger)]">{correctAnswerMessage}</p>
+          ) : null}
         </div>
       ) : null}
 
       {type === 'INPUT' ? (
         <div className="mt-4">
-          <label className="mb-2 block text-sm font-medium">Correct answer</label>
-          <input className="w-full" {...register(`questions.${index}.correctAnswer`)} />
+          <label className="mb-2 block text-sm font-medium" htmlFor={`question-answer-${index}`}>
+            Correct answer
+          </label>
+          <input
+            id={`question-answer-${index}`}
+            className="w-full"
+            {...register(`questions.${index}.correctAnswer`)}
+          />
+          {correctAnswerMessage ? (
+            <p className="mt-2 text-sm text-[var(--danger)]">{correctAnswerMessage}</p>
+          ) : null}
         </div>
       ) : null}
 

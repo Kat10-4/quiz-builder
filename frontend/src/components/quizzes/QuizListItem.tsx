@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FormButton } from '@/components/create/FormButton';
 import type { QuizListItem as QuizListItemType } from '@/lib/types/types';
 
 type QuizListItemProps = {
@@ -18,14 +19,15 @@ function QuizListItem({ quiz, onDelete }: QuizListItemProps) {
           {quiz.questionCount} {quiz.questionCount === 1 ? 'question' : 'questions'}
         </span>
       </Link>
-      <button
+      <FormButton
         type="button"
+        variant="secondary"
+        size="sm"
         onClick={() => onDelete(quiz.id)}
-        className="border border-black bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-black hover:text-white"
         aria-label={`Delete ${quiz.title}`}
       >
         Delete
-      </button>
+      </FormButton>
     </li>
   );
 }

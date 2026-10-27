@@ -101,6 +101,24 @@ textarea {
   padding: 12px 16px;
 }
 
+select,
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  min-height: 48px;
+  padding: 12px 40px 12px 16px;
+  background-color: var(--surface-muted);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%231d1e20' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px 8px;
+  cursor: pointer;
+}
+
+select option {
+  padding: 12px 16px;
+}
+
 input::placeholder,
 textarea::placeholder {
   color: #888888;
@@ -109,4 +127,55 @@ textarea::placeholder {
 button {
   border: 0;
   cursor: pointer;
+}
+
+.form-button {
+  display: inline-block;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
+  border-radius: var(--radius);
+  transition:
+    background-color 0.15s linear,
+    color 0.15s linear,
+    border-color 0.15s linear,
+    opacity 0.15s linear;
+}
+
+.form-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-button--sm {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+}
+
+.form-button--md {
+  padding: 12px 32px;
+  font-size: 1rem;
+}
+
+.form-button--primary {
+  background: var(--accent);
+  color: #ffffff;
+  border: 1px solid var(--accent);
+}
+
+.form-button--primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: #ffffff;
+}
+
+.form-button--secondary {
+  background: transparent;
+  color: #000000;
+  border: 1px solid #000000;
+}
+
+.form-button--secondary:hover:not(:disabled) {
+  background: #000000;
+  color: #ffffff;
 }

@@ -12,7 +12,7 @@ function ButtonLink({ href, children, className = '', onClick }: ButtonLinkProps
   return (
     <Link
       href={href}
-      className={`inline-block bg-black px-8 py-3 text-base font-medium text-[#ffffff] no-underline hover:bg-[var(--accent-hover)] hover:text-[#ffffff] hover:no-underline${
+      className={`form-button form-button--primary form-button--md inline-block no-underline hover:no-underline${
         className ? ` ${className}` : ''
       }`}
       onClick={onClick}

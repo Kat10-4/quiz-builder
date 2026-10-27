@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FormButton } from '@/components/create/FormButton';
+import { FormButton } from '@/components/FormButton';
 import type { QuizListItem as QuizListItemType } from '@/lib/types/types';
 
 type QuizListItemProps = {

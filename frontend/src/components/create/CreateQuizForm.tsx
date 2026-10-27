@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { QuestionFields } from '@/components/create/QuestionFields';
-import { FormButton } from '@/components/create/FormButton';
+import { FormButton } from '@/components/FormButton';
 import { api } from '@/lib/api/api';
 import { createQuizSchema, type CreateQuizFormValues } from '@/lib/validation/createQuizSchema';
 
@@ -54,7 +54,7 @@ function CreateQuizForm() {
         <label htmlFor="title" className="mb-2 block font-medium">
           Quiz title
         </label>
-        <input id="title" className="w-full" {...register('title')} />
+        <input id="title" className="w-full" maxLength={200} {...register('title')} />
         {errors.title ? (
           <p className="mt-2 text-sm text-[var(--danger)]">{errors.title.message}</p>
         ) : null}

@@ -1,9 +1,12 @@
+import type { PrismaClient } from '@prisma/client';
 import { prisma } from '../lib/prisma';
 import type { CreateQuizInput } from '../schemas/quiz';
 
 class QuizService {
+  constructor(private readonly prisma: PrismaClient) {}
+
   async createQuiz(data: CreateQuizInput) {
-    return prisma.quiz.create({
+    return this.prisma.quiz.create({
       data: {
         title: data.title,
         questions: {
@@ -38,7 +41,7 @@ class QuizService {
   }
 
   async listQuizzes() {
-    const quizzes = await prisma.quiz.findMany({
+    const quizzes = await this.prisma.quiz.findMany({
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
@@ -57,7 +60,7 @@ class QuizService {
   }
 
   async getQuizById(id: string) {
-    return prisma.quiz.findUnique({
+    return this.prisma.quiz.findUnique({
       where: { id },
       include: {
         questions: {
@@ -69,11 +72,12 @@ class QuizService {
   }
 
   async deleteQuiz(id: string) {
-    return prisma.quiz.delete({
+    return this.prisma.quiz.delete({
       where: { id },
     });
   }
 }
 
-const quizService = new QuizService();
-export { quizService };
+const quizService = new QuizService(prisma);
+
+export { QuizService, quizService };

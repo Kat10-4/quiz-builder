@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Prisma } from '@prisma/client';
-import { ErrorMessage } from '../constants/errorMessages';
+import { ErrorMessage } from '../lib/constants/errorMessages';
 import { validateBody, type ValidatedRequest } from '../middleware/validate';
 import { createQuizSchema, type CreateQuizInput } from '../schemas/quiz';
 import { quizService } from '../services/quizService';

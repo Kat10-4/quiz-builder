@@ -1,5 +1,5 @@
 import type { ErrorRequestHandler } from 'express';
-import { ErrorMessage } from '../constants/errorMessages';
+import { ErrorMessage } from '../lib/constants/errorMessages';
 
 const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   console.error(err);

@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
 import type { ZodType } from 'zod';
-import { ErrorMessage } from '../constants/errorMessages';
+import { ErrorMessage } from '../lib/constants/errorMessages';
 
 type ValidatedRequest<T> = Request<object, object, T>;
 

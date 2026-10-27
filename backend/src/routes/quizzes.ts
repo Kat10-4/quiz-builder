@@ -1,22 +1,24 @@
 import { Router } from 'express';
 import { Prisma } from '@prisma/client';
 import { ErrorMessage } from '../constants/errorMessages';
-import { validateBody } from '../middleware/validate';
-import { createQuizSchema } from '../schemas/quiz';
-import type { CreateQuizInput } from '../schemas/quiz';
+import { validateBody, type ValidatedRequest } from '../middleware/validate';
+import { createQuizSchema, type CreateQuizInput } from '../schemas/quiz';
 import { quizService } from '../services/quizService';
 
 const quizzesRouter = Router();
 
-quizzesRouter.post('/', validateBody(createQuizSchema), async (req, res, next) => {
-  try {
-    const data = req.body as CreateQuizInput;
-    const quiz = await quizService.createQuiz(data);
-    res.status(201).json(quiz);
-  } catch (err) {
-    next(err);
-  }
-});
+quizzesRouter.post(
+  '/',
+  validateBody(createQuizSchema),
+  async (req: ValidatedRequest<CreateQuizInput>, res, next) => {
+    try {
+      const quiz = await quizService.createQuiz(req.body);
+      res.status(201).json(quiz);
+    } catch (err) {
+      next(err);
+    }
+  },
+);
 
 quizzesRouter.get('/', async (_req, res, next) => {
   try {

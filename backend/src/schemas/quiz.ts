@@ -82,7 +82,6 @@ const createQuizSchema = z
   });
 
 type CreateQuizInput = z.infer<typeof createQuizSchema>;
-type QuestionInput = z.infer<typeof questionSchema>;
 
 export { createQuizSchema };
-export type { CreateQuizInput, QuestionInput };
+export type { CreateQuizInput };

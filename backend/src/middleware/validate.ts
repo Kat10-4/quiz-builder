@@ -1,10 +1,12 @@
-import type { RequestHandler } from 'express';
-import type { ZodTypeAny } from 'zod';
+import type { NextFunction, Request, Response } from 'express';
+import type { ZodType } from 'zod';
 import { ErrorMessage } from '../constants/errorMessages';
 
+type ValidatedRequest<T> = Request<object, object, T>;
+
 const validateBody =
-  (schema: ZodTypeAny): RequestHandler =>
-  (req, res, next) => {
+  <T>(schema: ZodType<T>) =>
+  (req: Request, res: Response, next: NextFunction): void => {
     const parsed = schema.safeParse(req.body);
 
     if (!parsed.success) {
@@ -20,3 +22,4 @@ const validateBody =
   };
 
 export { validateBody };
+export type { ValidatedRequest };

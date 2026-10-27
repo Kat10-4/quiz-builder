@@ -4,10 +4,26 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+const SAMPLE_QUIZ_TITLE = 'Sample Full-Stack Quiz';
+
 async function main() {
+  const existing = await prisma.quiz.findFirst({
+    where: { title: SAMPLE_QUIZ_TITLE },
+    include: {
+      questions: true,
+    },
+  });
+
+  if (existing) {
+    console.log(
+      `Seed skipped: quiz "${existing.title}" already exists (${existing.id}) with ${existing.questions.length} questions`,
+    );
+    return;
+  }
+
   const quiz = await prisma.quiz.create({
     data: {
-      title: 'Sample Full-Stack Quiz',
+      title: SAMPLE_QUIZ_TITLE,
       questions: {
         create: [
           {

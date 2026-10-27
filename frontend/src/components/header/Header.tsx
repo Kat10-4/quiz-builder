@@ -34,7 +34,7 @@ function Header() {
             href="/quizzes"
             className="text-lg font-semibold tracking-tight text-[var(--ink)] no-underline hover:no-underline"
           >
-            Quiz Builder
+            <h1 className="text-lg font-semibold tracking-tight">Quiz Builder</h1>
           </Link>
           <DesktopNav />
           <MobileNav onOpenChange={setMenuOpen} />

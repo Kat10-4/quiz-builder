@@ -62,7 +62,7 @@ function QuizzesPage() {
     <div>
       <div className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Quizzes</h1>
+          <h2 className="text-3xl font-semibold tracking-tight">Quizzes</h2>
           <p className="mt-1 text-[var(--muted)]">
             {quizzes.length} {quizzes.length === 1 ? 'quiz' : 'quizzes'}
           </p>

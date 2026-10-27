@@ -97,11 +97,15 @@ App: [http://localhost:3000](http://localhost:3000)
 
 ## Sample quiz
 
-After the API is running, create a quiz via **Create** in the UI, or (once implemented) run:
+With Postgres running and migrations applied, seed a sample quiz (BOOLEAN + INPUT + CHECKBOX):
 
 ```bash
-cd backend && npm run seed
+cd backend
+npm run seed
+# or: npx prisma db seed
 ```
+
+You can also create quizzes via the **Create** page once the frontend is ready.
 
 ## Lint & format
 
